@@ -1,1 +1,3 @@
 export * from "./slideUp";
+export * from "./roundedCarousel";
+export * from "./yearCounter";

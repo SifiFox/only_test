@@ -1,6 +1,6 @@
 @use "@app/styles/__variables" as vars;
 
-$title-border-width: 6px;
+$title-border-width: 0.4rem;
 
 .layout {
     position: relative;
@@ -54,5 +54,26 @@ $title-border-width: 6px;
         );
         transform: translateY(-50%) scaleY(0.85);
         transform-origin: center;
+    }
+}
+
+.carousel_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-52%, -50%);
+    display: flex;
+    gap: 6rem;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 12rem;
+    z-index: -1;
+    & > span {
+        &:nth-child(1) {
+            color: vars.$color-fuschia;
+        }
+        &:nth-child(2) {
+            color: vars.$color-iris;
+        }
     }
 }

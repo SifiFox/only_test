@@ -1,0 +1,155 @@
+@use "@app/styles/__variables" as vars;
+
+.root {
+  --carousel-size: clamp(20rem, 33vw, 33.125rem);
+  --carousel-radius: calc(var(--carousel-size) / 2);
+  --rotation-deg: 0deg;
+  --point-size-collapsed: 0.375rem;
+  --point-size-expanded: 3.5rem;
+  width: var(--carousel-size);
+  height: var(--carousel-size);
+  margin: 0 auto;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.root::before,
+.root::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(vars.$color-blackBlue, 0.1);
+  pointer-events: none;
+}
+
+.root::before {
+  top: -100svh;
+  left: 50%;
+  width: 1px;
+  height: 200svh;
+  transform: translateX(-50%);
+}
+
+.root::after {
+  top: 50%;
+  left: -100vw;
+  width: 200vw;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.circle {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(vars.$color-blackBlue, 0.2);
+  border-radius: 50%;
+}
+
+.pointsLayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: center;
+}
+
+.point {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--point-angle)) translateX(var(--carousel-radius));
+  transform-origin: center;
+}
+
+.pointContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--point-size-expanded);
+  height: var(--point-size-expanded);
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%) rotate(calc(-1 * (var(--point-angle) + var(--rotation-deg))));
+  transform-origin: center;
+}
+
+.pointButton {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  width: var(--point-size-collapsed);
+  height: var(--point-size-collapsed);
+  border: none;
+  border-radius: 50%;
+  background-color: vars.$color-blackBlue;
+  color: vars.$color-blackBlue;
+  cursor: pointer;
+  transition:
+    width 220ms ease,
+    height 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+
+.pointIndex {
+  display: block;
+  opacity: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: 400;
+  transition: opacity 180ms ease;
+}
+
+.pointContent:hover .pointButton {
+  width: var(--point-size-expanded);
+  height: var(--point-size-expanded);
+  border: 1px solid rgba(vars.$color-blackBlue, 0.5);
+  background-color: vars.$color-light;
+}
+
+.pointContent:hover .pointIndex {
+  opacity: 1;
+}
+
+.pointButtonActive {
+  width: var(--point-size-expanded);
+  height: var(--point-size-expanded);
+  border: 1px solid rgba(vars.$color-blackBlue, 0.5);
+  background-color: vars.$color-light;
+}
+
+.pointButtonActive .pointIndex {
+  opacity: 1;
+}
+
+.activeTitle {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + (var(--point-size-expanded) / 2) + 0.75rem);
+  z-index: 1;
+  transform: translateY(-50%);
+  color: vars.$color-blackBlue;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: fadeIn 220ms ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
