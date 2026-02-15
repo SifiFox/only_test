@@ -1,0 +1,44 @@
+$color-blackBlue: #42567a;
+$color-blue: #3877ee;
+$color-fuschia: #ef5da8;
+$color-iris: #5d5fef;
+
+$color-blackBlue-50: rgba(66, 86, 122, 0.5);
+$color-light: #f4f5f9;
+$color-dark-50: rgba(48, 62, 88, 0.5);
+
+$gradient-fuschia-iris: linear-gradient(135deg, $color-fuschia 0%, $color-iris 100%);
+
+$font-family-base:
+  "PT Sans",
+  Inter,
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  Arial,
+  sans-serif;
+  
+$font-family-secondary:
+  "Bebas Neue",
+  "PT Sans",
+  Inter,
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  Arial,
+  sans-serif;
+
+:root {
+  --color-black-blue: #{$color-blackBlue};
+  --color-blue: #{$color-blue};
+  --color-fuschia: #{$color-fuschia};
+  --color-iris: #{$color-iris};
+  --color-black-blue-50: #{$color-blackBlue-50};
+  --color-light: #{$color-light};
+  --color-dark-50: #{$color-dark-50};
+  --gradient-fuschia-iris: #{$gradient-fuschia-iris};
+  --font-family-base: #{$font-family-base};
+  --font-family-secondary: #{$font-family-secondary};
+}

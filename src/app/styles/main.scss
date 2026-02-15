@@ -1,0 +1,26 @@
+@use "./fonts";
+@use "./__variables" as vars;
+
+:root {
+  font-family: vars.$font-family-base;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: vars.$color-light;
+  color: vars.$color-blackBlue;
+  font-family: vars.$font-family-base;
+}
+
+@media (min-width: 1300px) {
+  html {
+    font-size: 0.8333333333vw;
+  }
+}
