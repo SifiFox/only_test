@@ -1,1 +1,1 @@
-export { AnimatedTimelaps, Timelaps } from "./timelaps";
+export { AnimatedTimelaps, Timelaps } from "./ui/timelaps";

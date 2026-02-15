@@ -1,5 +1,5 @@
-import { animationSlideUp } from "@/shared/animations/slideUp";
-import { AnimatedTimelaps, Timelaps } from "@/widgets";
+import { animationSlideUp } from "@/shared";
+import { AnimatedTimelaps } from "@/widgets";
 
 
 export function App() {

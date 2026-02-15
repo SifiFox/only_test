@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
-
 import slidesData from "@/app/data/slides.json";
 
 import type { SlideCategory } from "./types";
-import { useFakeFetch } from "@/shared";
-import { FakeFetchParams, FakeFetchResult, UseFakeFetchResult } from "@/shared/hooks/useFakeFetch";
+import { FakeFetchParams, FakeFetchResult, UseFakeFetchResult, useFakeFetch } from "@/shared";
 
 export function fakeFetch<TData>({
   data,
-  delayMs = 700
+  delayMs = 1000
 }: FakeFetchParams<TData>): Promise<FakeFetchResult<TData>> {
   return new Promise((resolve) => {
     setTimeout(() => {

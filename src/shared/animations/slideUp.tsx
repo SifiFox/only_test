@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import type { TimelapsAnimation } from "@/shared/animations/types";
+import type { TimelapsAnimation } from "@/shared";
 
 export const animationSlideUp: TimelapsAnimation = ({ timelapsRef }) => {
     if (!timelapsRef.current) {

@@ -1,0 +1,26 @@
+@use "@app/styles/__variables" as vars;
+
+@mixin skeletonShimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(vars.$color-blackBlue, 0.08) 0%,
+    rgba(vars.$color-blackBlue, 0.12) 50%,
+    rgba(vars.$color-blackBlue, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.2s ease-in-out infinite;
+  border-radius: 0.25rem;
+}
+
+.skeleton {
+  @include skeletonShimmer;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

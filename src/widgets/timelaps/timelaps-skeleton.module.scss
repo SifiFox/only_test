@@ -1,0 +1,200 @@
+@use "@app/styles/__variables" as vars;
+@use "../../shared/ui/skeletons/skeleton.module.scss" as sk;
+
+$title-border-width: 0.4rem;
+
+.layout {
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  min-height: 100svh;
+  max-width: 90rem;
+  border-left: 1px solid rgba(vars.$color-blackBlue, 0.1);
+  border-right: 1px solid rgba(vars.$color-blackBlue, 0.1);
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mobileSkeleton {
+  display: none;
+}
+
+.titleWrap {
+  position: relative;
+  align-self: flex-start;
+  max-width: 22rem;
+  margin-top: 10.3rem;
+  margin-left: -1px;
+  padding-left: 4.8rem;
+  box-sizing: content-box;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: $title-border-width;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      vars.$color-iris 0%,
+      vars.$color-fuschia 100%
+    );
+    transform: translateY(-50%) scaleY(0.85);
+    transform-origin: center;
+    opacity: 0.3;
+  }
+}
+
+.titleLine {
+  height: 4.4rem;
+  width: 100%;
+  max-width: 22rem;
+  @include sk.skeletonShimmer;
+}
+
+.carousel_content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-52%, -120%);
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+  z-index: -1;
+}
+
+.carouselNumber {
+  width: 20rem;
+  height: 12rem;
+  @include sk.skeletonShimmer;
+}
+
+.carouselBlock {
+  margin: 6rem 4.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.7rem;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: calc(90rem - 9.6rem);
+}
+
+.controlsRow {
+  display: flex;
+  align-items: center;
+  gap: 1.35rem;
+}
+
+.counterLine {
+  width: 3rem;
+  height: 1.2rem;
+  @include sk.skeletonShimmer;
+}
+
+.navCircle {
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  @include sk.skeletonShimmer;
+}
+
+.sliderHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.headerLine {
+  width: 100%;
+  height: 1px;
+  background: rgba(vars.$color-blackBlue, 0.18);
+}
+
+.headerTitle {
+  width: 100%;
+  max-width: 22rem;
+  height: 1.45rem;
+  @include sk.skeletonShimmer;
+}
+
+.cardsRow {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.card {
+  flex: 1;
+  min-width: 0;
+  min-height: 8.75rem;
+  height: 8.75rem;
+  @include sk.skeletonShimmer;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    min-height: auto;
+    border: none;
+    height: 100svh;
+  }
+
+  .content {
+    justify-content: flex-start;
+  }
+
+  .desktopSkeleton {
+    display: none;
+  }
+
+  .mobileSkeleton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 1rem 2rem;
+    width: calc(100vw - 2rem);
+    height: 100svh;
+    margin: 0 auto;
+  }
+
+  .mStrip {
+    height: 1.25rem;
+    width: 100%;
+    @include sk.skeletonShimmer;
+  }
+
+  .mTwoStrips {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+  }
+
+  .mTwoStrips .mStrip {
+    width: 100%;
+    height: 3.5rem;
+    max-width: none;
+  }
+
+  .mTwoBlocks {
+    display: flex;
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .mBlock {
+    flex: 1;
+    min-width: 0;
+    min-height: 6rem;
+    height: 6rem;
+    @include sk.skeletonShimmer;
+  }
+}

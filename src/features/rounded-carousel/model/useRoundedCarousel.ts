@@ -1,12 +1,11 @@
-import type { SlideCategory } from "@/entities/slide/model";
+import type { SlideCategory } from "@/entities";
 import {
   getNextRotationByShortestPath,
   getPointBaseAngle,
-  getTargetRotationForActiveIndex,
-} from "@/features/rounded-carousel/model/helpers";
-import { animateRoundedCarouselRotation } from "@/shared/animations";
-import type { MouseEvent } from "react";
-import type { RefObject } from "react";
+  getTargetRotationForActiveIndex
+} from "@/features";
+import { animateRoundedCarouselRotation } from "@/shared";
+import type { MouseEvent, RefObject } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface UseRoundedCarouselParams {
@@ -40,7 +39,7 @@ function getFallbackActiveId(slides: SlideCategory[]): number | null {
 
 function hasSlideWithId({
   slides,
-  slideId,
+  slideId
 }: {
   slides: SlideCategory[];
   slideId?: number | null;
@@ -51,7 +50,7 @@ function hasSlideWithId({
 function resolveInitialActiveId({
   slides,
   activeId,
-  defaultActiveId,
+  defaultActiveId
 }: {
   slides: SlideCategory[];
   activeId?: number;
@@ -69,7 +68,7 @@ function resolveInitialActiveId({
 }
 
 function extractPointPayloadFromEvent({
-  event,
+  event
 }: {
   event: MouseEvent<HTMLDivElement>;
 }): { targetId: number; targetIndex: number } | null {
@@ -99,7 +98,7 @@ export function useRoundedCarousel({
   slides,
   activeId,
   defaultActiveId,
-  onActiveChange,
+  onActiveChange
 }: UseRoundedCarouselParams): UseRoundedCarouselResult {
   const isControlled = activeId !== undefined;
   const initialActiveId = resolveInitialActiveId({ slides, activeId, defaultActiveId });
@@ -112,7 +111,9 @@ export function useRoundedCarousel({
   const rotationTweenRef = useRef<ReturnType<typeof animateRoundedCarouselRotation> | null>(null);
   const hasInitializedRotationRef = useRef(false);
 
-  const currentActiveId = isControlled ? activeId ?? getFallbackActiveId(slides) : internalActiveId;
+  const currentActiveId = isControlled
+    ? (activeId ?? getFallbackActiveId(slides))
+    : internalActiveId;
   const safeActiveId =
     currentActiveId !== null && hasSlideWithId({ slides, slideId: currentActiveId })
       ? currentActiveId
@@ -127,7 +128,7 @@ export function useRoundedCarousel({
     return slides.map((slide, index) => ({
       slide,
       index,
-      baseAngleDeg: getPointBaseAngle({ index, totalPoints }),
+      baseAngleDeg: getPointBaseAngle({ index, totalPoints })
     }));
   }, [slides]);
 
@@ -148,7 +149,7 @@ export function useRoundedCarousel({
 
       const targetRotationDeg = getTargetRotationForActiveIndex({
         activeIndex: targetIndex,
-        totalPoints: slides.length,
+        totalPoints: slides.length
       });
 
       if (!hasInitializedRotationRef.current) {
@@ -161,7 +162,7 @@ export function useRoundedCarousel({
 
       const nextRotationDeg = getNextRotationByShortestPath({
         currentRotationDeg: rotationRef.current,
-        targetRotationDeg,
+        targetRotationDeg
       });
 
       const rotationDelta = Math.abs(nextRotationDeg - rotationRef.current);
@@ -187,10 +188,10 @@ export function useRoundedCarousel({
           rotationRef.current = nextRotationDeg;
           applyLayerRotation(nextRotationDeg);
           setIsSettled(true);
-        },
+        }
       });
     },
-    [applyLayerRotation, slides],
+    [applyLayerRotation, slides]
   );
 
   const handlePointClick = useCallback(
@@ -202,7 +203,7 @@ export function useRoundedCarousel({
       onActiveChange?.(targetId);
       rotateToIndex(targetIndex);
     },
-    [isControlled, onActiveChange, rotateToIndex],
+    [isControlled, onActiveChange, rotateToIndex]
   );
 
   const handlePointsLayerClick = useCallback(
@@ -214,7 +215,7 @@ export function useRoundedCarousel({
 
       handlePointClick(pointPayload);
     },
-    [handlePointClick],
+    [handlePointClick]
   );
 
   useEffect(() => {
@@ -249,6 +250,6 @@ export function useRoundedCarousel({
     isSettled,
     pointsLayerRef,
     points,
-    handlePointsLayerClick,
+    handlePointsLayerClick
   };
 }

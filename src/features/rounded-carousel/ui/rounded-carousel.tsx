@@ -1,7 +1,7 @@
-import type { SlideCategory } from "@/entities/slide/model";
-import { useRoundedCarousel } from "@/features/rounded-carousel/model";
-import { cn } from "@/shared/lib";
-import type { CSSProperties } from "react";
+import type { SlideCategory } from "@/entities";
+import { useRoundedCarousel } from "@/features";
+import { cn } from "@/shared";
+import { type CSSProperties, useEffect } from "react";
 import styles from "./rounded-carousel.module.scss";
 
 interface RoundedCarouselProps {
@@ -9,6 +9,7 @@ interface RoundedCarouselProps {
   activeId?: number;
   defaultActiveId?: number;
   onActiveChange?: (id: number) => void;
+  onSettledChange?: (isSettled: boolean) => void;
   className?: string;
   children?: React.ReactNode;
 }
@@ -22,6 +23,7 @@ export function RoundedCarousel({
   activeId,
   defaultActiveId,
   onActiveChange,
+  onSettledChange,
   className,
   children,
 }: RoundedCarouselProps) {
@@ -32,6 +34,10 @@ export function RoundedCarousel({
       defaultActiveId,
       onActiveChange,
     });
+
+  useEffect(() => {
+    onSettledChange?.(isSettled);
+  }, [isSettled, onSettledChange]);
 
   if (!isReadyToRender || safeActiveId === null) {
     return null;

@@ -1,1 +1,2 @@
-export { RoundedCarousel } from "./ui/rounded-carousel";
+export * from "./ui";
+export * from "./model";

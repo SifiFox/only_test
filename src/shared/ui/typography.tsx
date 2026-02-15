@@ -1,5 +1,5 @@
-import { createElement } from "react";
-import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
+import { createElement, memo } from "react";
+import type { ComponentPropsWithoutRef, NamedExoticComponent, ReactElement, ReactNode } from "react";
 
 type TypographyTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div";
 
@@ -7,9 +7,7 @@ type TypographyProps<TTag extends TypographyTag> = ComponentPropsWithoutRef<TTag
   children?: ReactNode;
 };
 
-type TypographyTagComponent<TTag extends TypographyTag> = (
-  props: TypographyProps<TTag>
-) => ReactElement;
+type TypographyTagComponent<TTag extends TypographyTag> = NamedExoticComponent<TypographyProps<TTag>>;
 
 interface TypographyCompound {
   h1: TypographyTagComponent<"h1">;
@@ -24,9 +22,11 @@ interface TypographyCompound {
 }
 
 function createTypographyTag<TTag extends TypographyTag>(tag: TTag): TypographyTagComponent<TTag> {
-  return function TypographyTag({ children, ...props }: TypographyProps<TTag>) {
+  function TypographyTag({ children, ...props }: TypographyProps<TTag>): ReactElement {
     return createElement(tag, props, children);
-  };
+  }
+
+  return memo(TypographyTag);
 }
 
 export const Typography: TypographyCompound = {
