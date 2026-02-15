@@ -22,13 +22,21 @@ interface AnimatedTimelapsProps extends TimelapsBaseProps {
   animation: TimelapsAnimation;
 }
 
+const MIN_SLIDES = 2;
+const MAX_SLIDES = 6;
+
 const CONTENT = {
   loading: <TimelapsSkeleton />,
   empty: "Данные не были загружены, видимо не судьба в этот раз",
+  invalidSlidesCount: "Количество слайдов должно быть от 2 до 6",
   title: "Исторические даты",
 } as const;
 
 const DEFAULT_ERROR = "Не удалось загрузить данные";
+
+function isValidSlidesCount(count: number): boolean {
+  return count >= MIN_SLIDES && count <= MAX_SLIDES;
+}
 
 interface TimelapsContentProps {
   slides: SlideCategory[];
@@ -106,6 +114,10 @@ export const Timelaps = forwardRef<HTMLDivElement, TimelapsProps>(function Timel
     return <>{emptyFallback}</>;
   }
 
+  if (!isValidSlidesCount(data.length)) {
+    return <>{CONTENT.invalidSlidesCount}</>;
+  }
+
   return <TimelapsContent ref={ref} slides={data} />;
 });
 
@@ -137,6 +149,10 @@ export function AnimatedTimelaps({
 
   if (!data) {
     return <>{emptyFallback}</>;
+  }
+
+  if (!isValidSlidesCount(data.length)) {
+    return <>{CONTENT.invalidSlidesCount}</>;
   }
 
   return <TimelapsContent ref={timelapsRef} slides={data} />;
