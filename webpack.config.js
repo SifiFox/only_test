@@ -4,6 +4,30 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (_, argv) => {
   const isProduction = argv.mode === "production";
+  const cssModulePattern = /\.module\.(sa|sc|c)ss$/i;
+  const getStyleLoaders = ({ modules = false } = {}) => [
+    isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+    {
+      loader: "css-loader",
+      options: modules
+        ? {
+            esModule: true,
+            modules: {
+              namedExport: false,
+              exportLocalsConvention: "asIs",
+              localIdentName: isProduction
+                ? "[hash:base64:8]"
+                : "[path][name]__[local]--[hash:base64:5]"
+            }
+          }
+        : {
+            esModule: true,
+            modules: false
+          }
+    },
+    "postcss-loader",
+    "sass-loader"
+  ];
 
   return {
     entry: path.resolve(__dirname, "src/index.tsx"),
@@ -34,13 +58,13 @@ module.exports = (_, argv) => {
           exclude: /node_modules/
         },
         {
-          test: /\.(sa|sc|c)ss$/,
-          use: [
-            isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-            "css-loader",
-            "postcss-loader",
-            "sass-loader"
-          ]
+          test: cssModulePattern,
+          use: getStyleLoaders({ modules: true })
+        },
+        {
+          test: /\.(sa|sc|c)ss$/i,
+          exclude: cssModulePattern,
+          use: getStyleLoaders()
         },
         {
           test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,

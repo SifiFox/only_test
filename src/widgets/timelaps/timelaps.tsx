@@ -1,14 +1,15 @@
 import { useSlides } from "@/entities/slide/model";
 import type { TimelapsAnimation, TimelapsAnimationResult } from "@/shared/animations/types";
 import { Typography } from "@/shared/ui";
-import { forwardRef, type ReactNode, useEffect, useLayoutEffect, useRef } from "react";
+import { forwardRef, type ReactNode, useLayoutEffect, useRef } from "react";
+import styles from "./timelaps.module.scss";
 
 interface TimelapsBaseProps {
   fallback?: ReactNode;
   emptyFallback?: ReactNode;
 }
 
-interface TimelapsProps extends TimelapsBaseProps {}
+interface TimelapsProps extends TimelapsBaseProps { }
 
 interface AnimatedTimelapsProps extends TimelapsBaseProps {
   animation: TimelapsAnimation;
@@ -17,15 +18,15 @@ interface AnimatedTimelapsProps extends TimelapsBaseProps {
 const CONTENT = {
   loading: "isFetching",
   empty: "!data",
-  title: "Timelaps",
+  title: "Исторические даты",
 } as const;
 
 const DEFAULT_ERROR = "Не удалось загрузить данные";
 
 const TimelapsContent = forwardRef<HTMLDivElement>(function TimelapsContent(_, ref) {
   return (
-    <div ref={ref}>
-      <Typography.h1>{CONTENT.title}</Typography.h1>
+    <div ref={ref} className={styles.layout}>
+      <Typography.h1 className={styles.title}>{CONTENT.title}</Typography.h1>
     </div>
   );
 });
