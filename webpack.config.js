@@ -90,6 +90,16 @@ module.exports = (_, argv) => {
         ? [new MiniCssExtractPlugin({ filename: "assets/css/[name].[contenthash:8].css" })]
         : [])
     ],
+    optimization: {
+      splitChunks: {
+        chunks: "all"
+      },
+      ...(isProduction ? { runtimeChunk: "single" } : {})
+    },
+    performance: {
+      maxEntrypointSize: 360000,
+      maxAssetSize: 360000
+    },
     devServer: {
       static: path.resolve(__dirname, "public"),
       historyApiFallback: true,
